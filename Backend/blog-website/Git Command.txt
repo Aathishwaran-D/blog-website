@@ -1,0 +1,5 @@
+Command | What it does
+git status | See what has changed (new files, modified, etc.)
+git add . | Stage all changed files for commit
+git commit -m "your message" | Save (commit) the staged changes with a message
+git push | Upload (push) your commits to GitHub
