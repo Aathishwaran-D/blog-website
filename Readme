@@ -1,103 +1,181 @@
-Here's a **mini documentation** for your React component-based CRUD blog app, specifically focusing on the `DeletePost` component and how it integrates with the rest of the application.
+Here is a complete **mini documentation** for your React + Spring Boot blog app covering **all post-related functionalities** and the associated **API endpoints**:
 
 ---
 
-## 📝 Mini Documentation: DeletePost Component for Blog App
+## 📝 Blog App – Post Module Documentation (React + Spring Boot)
 
-### 📁 File: `DeletePost.jsx`
-
-### 📌 Purpose:
-The `DeletePost` component is used to display all blog posts from the database and allow users to delete any post. It performs a `GET` request to fetch all posts and a `DELETE` request to remove a selected post by its ID.
+This document explains all the components, API endpoints, and features related to **CRUD operations on posts** in your blog application.
 
 ---
 
-### ✅ Features:
-- Fetches all blog posts on component mount using `axios`.
-- Displays posts in a styled HTML table.
-- Provides a delete button for each post.
-- Confirms deletion via `window.confirm`.
-- Refreshes the list after deletion.
+## 📂 React Components Overview
+
+| Component Name | Purpose |
+|----------------|---------|
+| `CreatePost.jsx` | Create a new blog post |
+| `ViewPost.jsx`   | View all blog posts |
+| `UpdatePost.jsx` | Update an existing post |
+| `DeletePost.jsx` | Delete a specific post |
 
 ---
 
-### 📦 Dependencies:
-- React
-- Axios (`npm install axios`)
-- Backend API (assumed to be running on `http://localhost:8001/posts`)
+## 🔁 CRUD Operations Summary
+
+| Operation | Method | Endpoint | Description |
+|----------|--------|----------|-------------|
+| Create   | POST   | `/posts` | Add a new blog post |
+| Read All | GET    | `/posts` | Fetch all blog posts |
+| Read One | GET    | `/posts/{id}` | Fetch a single post by ID |
+| Update   | PUT    | `/posts/{id}` | Update a post by ID |
+| Delete   | DELETE | `/posts/{id}` | Delete a post by ID |
 
 ---
 
-### 🧩 Component Breakdown:
+## 📤 CreatePost.jsx
 
-#### **State Variables:**
-```js
-const [posts, setPosts] = useState([]);
+### 📌 Description:
+This component allows users to submit a new blog post.
+
+### ✅ API Used:
+```http
+POST /posts
 ```
-- Stores the list of posts fetched from the backend.
 
-#### **useEffect Hook:**
-```js
-useEffect(() => {
-    fetchPosts();
-}, []);
+### 🔸 Payload:
+```json
+{
+  "title": "Example Title",
+  "content": "Post content here",
+  "author": "John Doe",
+  "createdAt": "2025-04-30T13:00:00Z",
+  "updatedAt": "2025-04-30T13:00:00Z"
+}
 ```
-- Runs once after the component mounts to load initial data.
-
-#### **fetchPosts Function:**
-```js
-const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:8001/posts');
-    setPosts(res.data);
-};
-```
-- Calls backend API to retrieve all posts.
-
-#### **handleDelete Function:**
-```js
-const handleDelete = async (postId) => {
-    await axios.delete(`http://localhost:8001/posts/${postId}`);
-    fetchPosts(); // Refresh list
-};
-```
-- Sends DELETE request to backend to remove a post by ID.
 
 ---
 
-### 📃 UI Output:
-- A centered `h2` title.
-- A table with columns: Title, Content, Author, Created At, and Action.
-- Each row includes a "Delete" button that triggers `handleDelete`.
+## 📥 ViewPost.jsx
+
+### 📌 Description:
+Displays all existing blog posts in a table format.
+
+### ✅ API Used:
+```http
+GET /posts
+```
+
+### 🔸 Response Example:
+```json
+[
+  {
+    "id": 1,
+    "title": "React Intro",
+    "content": "Learn about React...",
+    "author": "Aathish",
+    "createdAt": "2025-04-29T10:00:00Z",
+    "updatedAt": "2025-04-29T10:00:00Z"
+  }
+]
+```
 
 ---
 
-### 🔗 Route Setup (React Router):
-Add this to `App.jsx` or your routing file:
+## 🔧 UpdatePost.jsx
+
+### 📌 Description:
+Allows editing a blog post selected by its ID.
+
+### ✅ APIs Used:
+1. Fetch existing data:
+```http
+GET /posts/{id}
+```
+
+2. Submit updated post:
+```http
+PUT /posts/{id}
+```
+
+### 🔸 Request Body Example:
+```json
+{
+  "title": "Updated Title",
+  "content": "Updated content",
+  "author": "Aathish",
+  "updatedAt": "2025-04-30T15:00:00Z"
+}
+```
+
+---
+
+## 🗑️ DeletePost.jsx
+
+### 📌 Description:
+Allows deletion of a post with confirmation.
+
+### ✅ API Used:
+```http
+DELETE /posts/{id}
+```
+
+### 🔸 Example:
+```http
+DELETE /posts/2
+```
+
+---
+
+## 🛠 Backend Controller – Spring Boot
+
+Ensure your Spring Boot controller looks like this:
+
+```java
+@RestController
+@RequestMapping("/posts")
+@CrossOrigin(origins = "http://localhost:5173") // for React CORS
+public class BlogController {
+
+    @Autowired
+    private PostService postService;
+
+    @GetMapping
+    public List<Post> getAllPosts() { return postService.getAllPosts(); }
+
+    @GetMapping("/{id}")
+    public Post getPost(@PathVariable Long id) { return postService.getPostById(id); }
+
+    @PostMapping
+    public Post createPost(@RequestBody Post post) { return postService.createPost(post); }
+
+    @PutMapping("/{id}")
+    public Post updatePost(@PathVariable Long id, @RequestBody Post post) {
+        return postService.updatePost(id, post);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePost(@PathVariable Long id) { postService.deletePost(id); }
+}
+```
+
+---
+
+## ✅ Frontend Routing Example (React Router)
 
 ```jsx
+import { Routes, Route } from 'react-router-dom';
+import CreatePost from './components/CreatePost';
+import ViewPost from './components/ViewPost';
+import UpdatePost from './components/UpdatePost';
 import DeletePost from './components/DeletePost';
 
 <Routes>
+  <Route path="/create" element={<CreatePost />} />
+  <Route path="/view" element={<ViewPost />} />
+  <Route path="/update" element={<UpdatePost />} />
   <Route path="/delete" element={<DeletePost />} />
 </Routes>
 ```
 
 ---
 
-### 📌 API Contract:
-
-#### `GET /posts`
-- Returns all blog posts.
-
-#### `DELETE /posts/{id}`
-- Deletes the post with the specified ID.
-
----
-
-### 🧪 Optional Enhancements:
-- Use toast notifications instead of `alert()`.
-- Add a loading spinner during fetch/delete.
-- Implement pagination if posts grow large.
-
----
-
-Would you like a printable PDF version or a Markdown file for this documentation?
+Would you like this document exported as a **PDF** or **Markdown (.md)** file?
