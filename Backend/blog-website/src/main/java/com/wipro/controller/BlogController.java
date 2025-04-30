@@ -8,6 +8,7 @@ import java.util.Map;
 import com.wipro.entity.Post;
 import com.wipro.service.BlogService;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class BlogController {
     // This class will handle the HTTP requests and responses for the blog application

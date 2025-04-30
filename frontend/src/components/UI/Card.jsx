@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = ({title, onClick}) => {
+const Card = ({className, title, onClick}) => {
     return (
         <StyledWrapper>
-            <div className="card" onClick={onClick}>
-                {title}
+            <div className={`card ${className || ''}`} onClick={onClick}>
+                <h2>{title}</h2>
             </div>
         </StyledWrapper>
     );
@@ -32,13 +32,13 @@ const StyledWrapper = styled.div`
     color: black;
   }
 
-  .card:hover {
-    border: 1px solid black;
-    transform: scale(1.05);
-  }
+.card:hover {
+border: 1px solid black;
+transform: scale(1.05);
+}
 
-  .card:active {
-    transform: scale(0.95) rotateZ(1.7deg);
-  }`;
+.card:active {
+transform: scale(0.95) rotateZ(1.7deg);
+}`;
 
 export default Card;
