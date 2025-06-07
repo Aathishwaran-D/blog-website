@@ -21,6 +21,7 @@ public class BlogController {
     public String createPost(@RequestBody Post post) {
         try {
             blogService.createPost(post);
+            System.out.println("Received Post: " + post.toString());
             return "Post created successfully";
         }
         catch (Exception e) {

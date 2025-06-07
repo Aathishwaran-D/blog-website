@@ -1,9 +1,6 @@
 package com.wipro.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Post {
@@ -16,16 +13,20 @@ public class Post {
     private String author;
     private String createdAt;
     private String updatedAt;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     public Post() {
+
     }
-    public Post(int id, String title, String content, String author, String createdAt, String updatedAt) {
+    public Post(int id, String title, String content, String author,String imageUrl, String createdAt, String updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.imageUrl = imageUrl; // Initialize the imageUrl field
     }
     public int getId() {
         return id;
@@ -62,5 +63,25 @@ public class Post {
     }
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
     }
 }

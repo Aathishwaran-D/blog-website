@@ -6,7 +6,8 @@ const CreatePost= ({ onPostCreated }) => {
     const [formData, setFormData] = useState({
         title: '',
         content: '',
-        author: ''
+        author: '',
+        imageUrl: ''
     });
     const [posts, setPosts] = useState([]);
     // Load posts when component loads
@@ -44,7 +45,7 @@ const CreatePost= ({ onPostCreated }) => {
             const response = await axios.post('http://localhost:8001/posts', postPayload);
             if (onPostCreated) onPostCreated(response.data);
             alert('Post created successfully!');
-            setFormData({ title: '', content: '', author: '' });
+            setFormData({ title: '', content: '', author: '', imageUrl: '' });
         } catch (error) {
             console.error('Error creating post:', error);
             alert('Failed to create post.');
@@ -82,6 +83,15 @@ const CreatePost= ({ onPostCreated }) => {
                     required
                     style={{ display: 'block', marginBottom: '10px', width: '100%', padding: '8px' }}
                 />
+                <input
+                    type="text"
+                    name="imageUrl"
+                    placeholder="Give your Image Url Here.."
+                    value={formData.imageUrl}
+                    onChange={handleChange}
+                    required
+                    style={{ display: 'block', marginBottom: '10px', width: '100%', padding: '8px' }}
+                />
                 <button type="submit" style={{ padding: '10px 20px' }}>Submit</button>
             </form>
             <hr/>
@@ -92,6 +102,7 @@ const CreatePost= ({ onPostCreated }) => {
                     <th>Title</th>
                     <th>Content</th>
                     <th>Author</th>
+                    <th>Image Url</th>
                     <th>Created At</th>
                     <th>Updated At</th>
                 </tr>
@@ -102,6 +113,7 @@ const CreatePost= ({ onPostCreated }) => {
                         <td>{post.title}</td>
                         <td>{post.content}</td>
                         <td>{post.author}</td>
+                        <td>{post.imageUrl}</td>
                         <td>{new Date(post.createdAt).toLocaleString()}</td>
                         <td>{new Date(post.updatedAt).toLocaleString()}</td>
                     </tr>

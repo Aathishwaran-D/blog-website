@@ -1,0 +1,80 @@
+.home-bgcolor{
+    background-image: url('src/images/background.jpg');
+    min-height: 100vh;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E5E5E5;
+
+    padding: 1rem 2rem;
+    color: #14213D;
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: #14213D;
+    transition: color 0.3s ease;
+}
+
+.navbar-links li a:hover {
+    color: #FCA311;
+}
+/*Welcome to INK Trail*/
+.content-heading{
+    margin-left: 10px;
+    margin-top: 200px;
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #14213D;
+}
+/*Behind the curtains*/
+.sub-title{
+    margin-left: 17px;
+    margin-top: 0px;
+    font-size: 1.5rem;
+    color: #FCA311;
+    /*font-size: 16px;*/
+}
+/*Content Body*/
+.justified-text {
+    margin-left: 17px;
+    margin-top: 0px;
+    text-align: justify; /* This justifies the text */
+    padding-right: 1100px;
+    font-size: 1.3rem;
+    line-height: 2.5; /* Adjust line height for readability */
+    font-family: "Roboto thin",sans-serif;
+    font-weight: 300;
+    margin-bottom: 0px;
+}
+/*Get Started Button*/
+Button{
+    margin-left: 600px;
+    margin-top: 20px;
+}

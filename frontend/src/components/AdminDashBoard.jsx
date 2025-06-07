@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Home.css';
+import './AdminDashBoard.css';
 import Card from './UI/Card.jsx';
 
-const Home = () => {
+const AdminDashBoard = () => {
     const navigate = useNavigate();
 
     return (
@@ -20,4 +20,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default AdminDashBoard;
